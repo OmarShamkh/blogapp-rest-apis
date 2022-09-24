@@ -74,25 +74,18 @@ class CreateComment(APIView):
 class EditComment(APIView):
     # ONLY authenticated users can edit a comment.
     permission_classes = [IsAuthenticated]
-    serializer = serializers.CreateCommentSerializer
 
-    def post(self, request:Request, id):
+    def put(self, request:Request, id):
         
         comment = Comment.objects.get(id=id)
-
-        # print("comment user :" ,comment.user)
-        # print("request user :" ,request.user)
-
         if request.user == comment.user:
-            new_comment = request.data['content']
-            comment.content = new_comment   
-            comment.save()
-
-            message = {"Comment Updated successfully"}
-
-            return Response(message,status=status.HTTP_200_OK)
+            serializer = serializers.CreateCommentSerializer(instance=comment , data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                message = {"Comment updated successfully"}
+                return Response(message,status=status.HTTP_201_CREATED)
         else:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -100,7 +93,7 @@ class DeleteComment(APIView):
     # ONLY authenticated users can delete a comment.
     permission_classes = [IsAuthenticated]
 
-    def get(self, request:Request, id):
+    def delete(self, request:Request, id):
         comment = Comment.objects.get(id=id)
 
         if request.user == comment.user:
