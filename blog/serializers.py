@@ -12,7 +12,7 @@ class PostSerializer(serializers.ModelSerializer):
     
 
 class CommentSerializer(serializers.ModelSerializer):
-  
+
     class Meta:
         model = Comment
         fields = ('user','post', 'content', 'published_date')
