@@ -40,14 +40,14 @@ class LoginView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data['user']
             login(request, user)
-            response = {"message": "Login Successfull"}
-            return Response(data=response, status=status.HTTP_202_ACCEPTED)
+            response = {"message": "Login Successfull" ,"token": user.auth_token.key}
+            return Response(data=response, status=status.HTTP_200_OK)
     
     def get(self, request:Request):
         user = request.user
         if user.is_authenticated:
             response = {"message": "You are Logged in.", "user": user.username}
-            return Response(data=response, status=status.HTTP_202_ACCEPTED)
+            return Response(data=response, status=status.HTTP_200_OK)
         else:
             response = {"message": "You are not logged in"}
             return Response(data=response, status=status.HTTP_401_UNAUTHORIZED)
@@ -55,7 +55,7 @@ class LoginView(APIView):
             
 
 class LogoutView(APIView):
-    def get(self, request):
+    def post(self, request):
         logout(request)
         response = {"message": "Logout Successfull"}
         return Response(data=response, status=status.HTTP_202_ACCEPTED)

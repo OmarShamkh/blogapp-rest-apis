@@ -1,6 +1,5 @@
-from mimetypes import common_types
 from rest_framework import status
-from rest_framework.request import Request
+from rest_framework.request import Request 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
@@ -18,7 +17,8 @@ class PostList(APIView):
         """ 
         posts = Post.objects.all() 
         serializer = serializers.PostSerializer(posts , many=True)
-        return Response({"Posts": serializer.data})
+
+        return Response(serializer.data)
 
 
 
@@ -31,17 +31,18 @@ class PostDetail(APIView):
         """ 
         try:
             post = Post.objects.get(id=id)
-           
             """
             Get all comments connected to the post using Indexing.
             CREATE INDEX "blog_comment_post_id" ON "blog_comment" ("post_id")
             """ 
             comments = post.comments.all()
             comments = comments.values()
+            # username = post.user.username
+            # print(username)
             serializer = serializers.PostSerializer(post)
             new_serializer = dict(serializer.data)
-            new_serializer['comments'] = comments
 
+            new_serializer['comments'] = comments
             return Response(new_serializer , status= status.HTTP_200_OK)
 
         except Post.DoesNotExist:
@@ -50,33 +51,30 @@ class PostDetail(APIView):
     
 
 
-
-class CreateComment(APIView):
-    # ONLY authenticated users can create a new comment.
+class Comments(APIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = serializers.CreateCommentSerializer
 
     def post(self, request:Request, id):
         """
         Create a comment on a post
         """
         post = Post.objects.get(id=id)
+        username = request.user.username
         comment = Comment.objects.create(
             user =request.user,
+            user_name = username,
             post =post,
             content=request.data['content']
         )
         comment.save()
         message = {"Comment created successfully"}
         return Response(message , status=status.HTTP_201_CREATED)
-        
-        
-class EditComment(APIView):
-    # ONLY authenticated users can edit a comment.
-    permission_classes = [IsAuthenticated]
 
+    
     def put(self, request:Request, id):
-        
+        """
+        Edit comment
+        """
         comment = Comment.objects.get(id=id)
         if request.user == comment.user:
             serializer = serializers.CreateCommentSerializer(instance=comment , data=request.data)
@@ -88,12 +86,10 @@ class EditComment(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-
-class DeleteComment(APIView):
-    # ONLY authenticated users can delete a comment.
-    permission_classes = [IsAuthenticated]
-
     def delete(self, request:Request, id):
+        """
+        Delete comment
+        """
         comment = Comment.objects.get(id=id)
 
         if request.user == comment.user:
@@ -103,6 +99,6 @@ class DeleteComment(APIView):
             return Response(message,status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
-        
+
 
         
