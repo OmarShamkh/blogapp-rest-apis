@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  blog-backend:
+    container_name: shamkh_blog_backend
+    build: .
+    ports:
+      - "8000:8000"
+
