@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  blog-backend:
+    container_name: shamkh_blog_backend
+    build: .
+    ports:
+      - target : 8000
+        published : 8000
+
+networks:
+  default:
+    name: shamkh_blog_newtwork
+
