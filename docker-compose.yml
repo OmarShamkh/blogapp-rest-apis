@@ -5,5 +5,10 @@ services:
     container_name: shamkh_blog_backend
     build: .
     ports:
-      - "8000:8000"
+      - target : 8000
+        published : 8000
+
+networks:
+  default:
+    name: shamkh_blog_newtwork
 

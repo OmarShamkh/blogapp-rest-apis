@@ -15,5 +15,5 @@ COPY . .
 # forward the request from port 8000 on the host to port 8000 in the container
 EXPOSE 8000
 
-# run app
+# run app 
 CMD python3 manage.py runserver 0.0.0.0:8000
