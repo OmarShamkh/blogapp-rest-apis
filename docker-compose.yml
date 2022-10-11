@@ -1,9 +1,9 @@
-version: '3'
+version: '3.7'
 
 services:
   blog-backend:
     container_name: shamkh_blog_backend
-    build: .
+    image: shamkh/shamkh_blog:backend
     ports:
       - target : 8000
         published : 8000
