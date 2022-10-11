@@ -41,6 +41,7 @@ class LoginView(APIView):
             login(request, user)
             response = {"message": "Login Successfull" ,"token": user.auth_token.key}
             return Response(data=response, status=status.HTTP_200_OK)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request:Request):
         user = request.user
