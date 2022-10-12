@@ -52,7 +52,13 @@ class PostDetail(APIView):
 
 
 class Comments(APIView):
+    
     permission_classes = [IsAuthenticated]
+    def get(self, request:Request, id):
+        comment = Comment.objects.get(id=id)
+        serializer = serializers.CommentSerializer(comment)
+        return Response(serializer.data['content'] , status=status.HTTP_200_OK)
+
 
     def post(self, request:Request, id):
         """
