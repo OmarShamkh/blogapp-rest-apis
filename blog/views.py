@@ -52,7 +52,7 @@ class PostDetail(APIView):
 
 
 class Comments(APIView):
-    
+
     permission_classes = [IsAuthenticated]
     def get(self, request:Request, id):
         comment = Comment.objects.get(id=id)
