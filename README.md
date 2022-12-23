@@ -35,7 +35,9 @@ End points:
 * (DELETE) Delete comment : http://localhost:8000/blog/comments/delete/{id}
 
 ****************************************************
-Here is the frontend repo:
+
+**Here is the frontend repo**:
+https://github.com/OmarShamkh/blogapp-frontend.git
 
 
 ### Thats all!
