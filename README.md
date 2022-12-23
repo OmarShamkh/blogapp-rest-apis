@@ -15,12 +15,20 @@ User has his own blog page, where he can add new blog posts.
 ****************************
 
 ### Run:
+1 -
+```
+ git clone https://github.com/OmarShamkh/blogapp-rest-apis.git
+```
+2 -
+```
+cd blogapp-rest-apis/
+```
+3 -
+```
+docker compose up
+```
 
-Just Clone the repo :
-* git clone https://github.com/OmarShamkh/blogapp-rest-apis.git
-* docker compose up
-
-Now? 
+***You are done***
 
 End points:
 
