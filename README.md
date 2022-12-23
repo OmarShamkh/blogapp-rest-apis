@@ -28,11 +28,11 @@ End points:
 
 * (GET) List post details by id : http://localhost:8000/blog/posts/{id}
 
-* (POST) Add comment to post with post_id : http://localhost:8000/blog/comments/add/{id}
+* (POST) Add comment to post with post_id : http://localhost:8000/blog/comments/{id}
 
-* (PUT) Edit comment : http://localhost:8000/blog/comments/edit/{id}
+* (PUT) Edit comment : http://localhost:8000/blog/comments/{id}
 
-* (DELETE) Delete comment : http://localhost:8000/blog/comments/delete/{id}
+* (DELETE) Delete comment : http://localhost:8000/blog/comments/{id}
 
 ****************************************************
 
