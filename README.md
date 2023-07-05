@@ -1,51 +1,48 @@
 # Personal Blog REST APIs
 
-### User apis:
-Create three endpoints for user register, login and logout.
+This repository contains the REST APIs for a personal blog application built with Django. The APIs allow users to register, login, and logout, as well as create, edit, and delete blog posts and comments.
 
-* Signup : with [email , username, password].
-* Login : with [username, password].
-**************************
-### Blog apis:
+## User APIs
 
-User has his own blog page, where he can add new blog posts.
-- Non-authenticated users can see all blog posts, but cannot add new posts or comment.
-- ONLY authenticated user can (create , edit , delete) comment on posts.
+The user APIs allow users to register, login, and logout.
 
-****************************
+* **Signup:** Users can create a new account by providing their email address, username, and password.
+* **Login:** Users can log in to their account using their username and password.
+* **Logout:** Users can log out of their accounts.
 
-### Run:
-1 -
+## Blog APIs
+The user has his own blog page, where he can add new blog posts.
+Non-authenticated users can see all blog posts, but cannot add new posts or comments.
+ONLY authenticated users can add comments on posts.
+
+* **Create comment:** Users can create a new comment on a blog post by providing the content of the comment.
+* **Edit comment:** Users can edit an existing comment on a blog post by providing the new content of the comment.
+* **Delete comment:** Users can delete an existing comment on a blog post.
+
+## Running the application
+
+To run the application, you will need to have Docker installed. Once you have Docker installed, you can follow these steps:
+
 ```
- git clone https://github.com/OmarShamkh/blogapp-rest-apis.git
+git clone https://github.com/OmarShamkh/blogapp-rest-apis.git
 ```
-2 -
 ```
 cd blogapp-rest-apis/
 ```
-3 -
+```
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
 ```
 docker compose up
 ```
 
-***You are done***
+The application will be up and running at http://localhost:8000/blog/posts.
 
-End points:
+## Frontend
 
-* (GET) List all posts : http://localhost:8000/blog/posts/
+The frontend for the application is hosted at the following repository:
 
-* (GET) List post details by id : http://localhost:8000/blog/posts/{id}
-
-* (POST) Add comment to post with post_id : http://localhost:8000/blog/comments/{id}
-
-* (PUT) Edit comment : http://localhost:8000/blog/comments/{id}
-
-* (DELETE) Delete comment : http://localhost:8000/blog/comments/{id}
-
-****************************************************
-
-**Here is the frontend repo**:
 https://github.com/OmarShamkh/blogapp-frontend.git
 
 
-### Thats all!
