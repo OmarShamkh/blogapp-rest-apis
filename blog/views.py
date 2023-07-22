@@ -54,6 +54,11 @@ class PostDetail(APIView):
 class Comments(APIView):
     permission_classes = [IsAuthenticated]
 
+    def get(self, request:Request, id):
+        comment = Comment.objects.get(id=id)
+        serializer = serializers.CommentSerializer(comment)
+        return Response(serializer.data , status= status.HTTP_200_OK)
+        
     def post(self, request:Request, id):
         """
         Create a comment on a post
