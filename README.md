@@ -36,9 +36,7 @@ git clone https://github.com/OmarShamkh/blogapp-rest-apis.git
 cd blogapp-rest-apis/
 ```
 ```
-python3 manage.py makemigrations
-python3 manage.py migrate
-python3 manage.py runserver
+docker compose up
 ```
 
 The application will be up and running at http://localhost:8000/blog/posts.
