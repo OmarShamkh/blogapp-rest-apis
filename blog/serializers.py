@@ -4,7 +4,7 @@ from .models import Post, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
-    
+    published_date = serializers.DateTimeField(format="%d-%m-%Y")
     class Meta:
         model = Post
         fields = ('id' ,'title', 'content', 'published_date')
