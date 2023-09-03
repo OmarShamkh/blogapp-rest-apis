@@ -53,7 +53,7 @@ class PostDetail(APIView):
 
 class Comments(APIView):
     permission_classes = [IsAuthenticated]
-
+    
     def get(self, request:Request, id):
         comment = Comment.objects.get(id=id)
         serializer = serializers.CommentSerializer(comment)
@@ -74,7 +74,7 @@ class Comments(APIView):
         comment.save()
         message = {"Comment created successfully"}
         return Response(message , status=status.HTTP_201_CREATED)
-
+    
     
     def put(self, request:Request, id):
         """
@@ -100,6 +100,51 @@ class Comments(APIView):
         if request.user == comment.user:
             comment.delete()
             message = {"Comment deleted successfully"}
+
+            return Response(message,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+
+class AdminPostDetail(APIView):
+    permission_classes = [IsAdminUser]
+
+    def post(self, request:Request, id):
+        """
+        Create a new post
+        """
+        post = Post.objects.create(
+            user =request.user,
+            title = request.data['title'],
+            content=request.data['content']
+        )
+        post.save()
+        message = {"Post created successfully"}
+        return Response(message , status=status.HTTP_201_CREATED)
+
+    def put(self, request:Request, id):
+        """
+        Edit post
+        """
+        post = Post.objects.get(id=id)
+        if request.user == post.user:
+            post.title = request.data['title']
+            post.content = request.data['content']
+            post.save()
+            message = {"Post updated successfully"}
+            return Response(message,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request:Request, id):
+        """
+        Delete post
+        """
+        post = Post.objects.get(id=id)
+
+        if request.user == post.user:
+            post.delete()
+            message = {"Post deleted successfully"}
 
             return Response(message,status=status.HTTP_200_OK)
         else:
