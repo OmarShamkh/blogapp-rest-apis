@@ -25,6 +25,13 @@ ONLY authenticated users can add comments on posts.
 * **Delete comment:** Users can delete an existing comment on a blog post.
     * URL: `http://localhost:8000/blog/comments/{id}`
 
+## Prerequisites
+
+Before running the application, make sure you have the following software installed:
+
+* Docker: Used to create, deploy, and run the application using containerization.
+* Python: The programming language used for this project.
+
 ## Running the application
 
 To run the application, you can follow these steps:
@@ -39,12 +46,41 @@ cd blogapp-rest-apis/
 docker compose up
 ```
 
+After running the "docker compose up" command, you should see a series of messages in your terminal as Docker builds and starts the containers. Once the application is running, you can verify it by navigating to http://localhost:8000/blog/posts in your web browser.
+
 The application will be up and running at http://localhost:8000/blog/posts.
+
+## Dependencies
+
+This project depends on the following packages:
+
+* django-admin==2.0.1: A high-level Python web framework that encourages rapid development and clean, pragmatic design.
+* django-cors-headers==3.13.0: A Django App that adds Cross-Origin Resource Sharing (CORS) headers to responses.
+* djangorestframework==3.13.1: A powerful and flexible toolkit for building Web APIs in Django.
 
 ## Frontend
 
 The frontend for the application is hosted at the following repository:
 
 https://github.com/OmarShamkh/blogapp-frontend.git
+
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Make your changes in your branch.
+4. Submit a pull request.
+
+Before contributing, please read the [code of conduct](CODE_OF_CONDUCT.md).
+
+## Project Structure
+
+The project is organized into several main directories:
+
+* `blog/`: Contains the models, views, and templates for the blog functionality.
+* `user/`: Contains the models, views, and templates for user authentication.
+* `Dockerfile`: Defines the Docker container for the application.
 
 
