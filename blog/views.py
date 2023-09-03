@@ -15,7 +15,7 @@ class PostList(APIView):
         """
         List all the posts.
         """ 
-        posts = Post.objects.all() 
+        posts = Post.objects.order_by('-published_date')
         serializer = serializers.PostSerializer(posts , many=True)
 
         return Response(serializer.data)
@@ -31,18 +31,10 @@ class PostDetail(APIView):
         """ 
         try:
             post = Post.objects.get(id=id)
-            """
-            Get all comments connected to the post using Indexing.
-            CREATE INDEX "blog_comment_post_id" ON "blog_comment" ("post_id")
-            """ 
-            comments = post.comments.all()
-            comments = comments.values()
-            # username = post.user.username
-            # print(username)
+            comments = post.comments.order_by('-published_date')
             serializer = serializers.PostSerializer(post)
-            new_serializer = dict(serializer.data)
-
-            new_serializer['comments'] = comments
+            new_serializer = serializer.data
+            new_serializer['comments'] = list(comments.values())
             return Response(new_serializer , status= status.HTTP_200_OK)
 
         except Post.DoesNotExist:
