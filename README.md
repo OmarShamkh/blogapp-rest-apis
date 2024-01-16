@@ -73,7 +73,6 @@ Contributions are welcome! To contribute:
 3. Make your changes in your branch.
 4. Submit a pull request.
 
-Before contributing, please read the [code of conduct](CODE_OF_CONDUCT.md).
 
 ## Project Structure
 
